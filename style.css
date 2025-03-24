@@ -9,6 +9,9 @@
   background-color: var(--first-bg-color);
   color: var(--first-text-color);
 }
+.standardpart {
+  margin-right: 5px;
+}
 .list-group-item {
   background-color: var(--second-bg-color);
   color: var(--first-text-color);
@@ -16,4 +19,7 @@
 }
 .list-group-item p {
   text-align: left;
+}
+.outcome {
+  color: var(--first-text-color);
 }
