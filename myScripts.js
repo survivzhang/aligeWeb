@@ -91,3 +91,39 @@ const bestPractices = [
     checked: false,
   },
 ];
+
+const project = [
+  {
+    id: 1,
+    name: "Blue crew",
+    description:
+      "A project to develop a mobile application for a local restaurant.",
+    skills: ["React Native", "Firebase", "UI/UX Design"],
+    status: "Completed",
+  },
+  {
+    id: 2,
+    name: "Road to be programmer",
+    description: "A website to help beginners learn programming from scratch.",
+    skills: ["React", "Node.js", "MongoDB"],
+    status: "In Progress",
+  },
+];
+
+const aboutMe = [
+  {
+    id: 1,
+    hobby: "Basketball",
+    description: "I love playing basketball. It helps me relax and stay fit.",
+  },
+  {
+    id: 2,
+    hobby: "Reading",
+    description: "I enjoy reading books on technology and self-improvement.",
+  },
+  {
+    id: 3,
+    hobby: "Traveling",
+    description: "I love to travel and explore new places and cultures.",
+  },
+];
