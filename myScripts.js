@@ -138,12 +138,13 @@ function generateBestPracticesList() {
     input.className = "form-check-input me-1";
     input.type = "checkbox";
     input.id = practice.id;
-    input.checked = practice.checked;
+    const storedState = localStorage.getItem(practice.id);
+    if (storedState === "true") {
+      input.checked = true;
+      practice.checked = true;
+    }
     input.addEventListener("change", function () {
-      const practiceIndex = bestPractices.findIndex(
-        (p) => p.id === practice.id
-      );
-      bestPractices[practiceIndex].checked = input.checked;
+      localStorage.setItem(practice.id, this.checked); // Store "true" or "false"
       updateScore();
     });
 
@@ -163,5 +164,9 @@ function generateBestPracticesList() {
 function updateScore() {
   const checkedPractices = bestPractices.filter((practice) => practice.checked);
   const score = checkedPractices.length;
-  document.querySelector("#score").textContent = `Score: ${score}`;
+  document.querySelector(".grade").textContent = `Your Score: ${score}`;
 }
+document.addEventListener("DOMContentLoaded", function () {
+  generateBestPracticesList();
+  updateScore();
+});
