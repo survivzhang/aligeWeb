@@ -127,3 +127,41 @@ const aboutMe = [
     description: "I love to travel and explore new places and cultures.",
   },
 ];
+function generateBestPracticesList() {
+  const listContainer = document.querySelector(".list-group");
+  listContainer.innerHTML = "";
+  bestPractices.forEach((practice) => {
+    const listItem = document.createElement("li");
+    listItem.classList.add("list-group-item");
+    const div = document.createElement("div");
+    const input = document.createElement("input");
+    input.className = "form-check-input me-1";
+    input.type = "checkbox";
+    input.id = practice.id;
+    input.checked = practice.checked;
+    input.addEventListener("change", function () {
+      const practiceIndex = bestPractices.findIndex(
+        (p) => p.id === practice.id
+      );
+      bestPractices[practiceIndex].checked = input.checked;
+      updateScore();
+    });
+
+    const label = document.createElement("label");
+    label.className = "form-check-label";
+    label.setAttribute("for", practice.id);
+    label.textContent = practice.label;
+    const description = document.createElement("p");
+    description.textContent = practice.description;
+    div.appendChild(input);
+    div.appendChild(label);
+    div.appendChild(description);
+    listItem.appendChild(div);
+    listContainer.appendChild(listItem);
+  });
+}
+function updateScore() {
+  const checkedPractices = bestPractices.filter((practice) => practice.checked);
+  const score = checkedPractices.length;
+  document.querySelector("#score").textContent = `Score: ${score}`;
+}
