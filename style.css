@@ -21,13 +21,27 @@
   text-align: left;
 }
 .outcome {
-  color: var(--first-text-color);
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  /* Keep other elements centered if you want them to be centered */
+  justify-content: center;
+  height: 100%; /* Ensure the container takes the full height */
+}
+.outcome li {
+  text-align: left;
+  margin-bottom: 10px;
 }
 .inform {
   text-align: left;
   margin-bottom: 20px;
   margin-left: 20px;
 }
+.level {
+  align-items: center;
+  font-size: 30px;
+}
 .grade {
-  color: var(--first-text-color);
+  align-items: center;
+  margin-top: 25%;
+  font-size: 20px;
 }

@@ -144,10 +144,10 @@ function generateBestPracticesList() {
       practice.checked = true;
     }
     input.addEventListener("change", function () {
-      localStorage.setItem(practice.id, this.checked); // Store "true" or "false"
+      localStorage.setItem(practice.id, this.checked); // Store "true" or "false" this represents the state of the checkbox, not the value of the practice.checked property
+      practice.checked = this.checked;
       updateScore();
     });
-
     const label = document.createElement("label");
     label.className = "form-check-label";
     label.setAttribute("for", practice.id);
@@ -165,6 +165,16 @@ function updateScore() {
   const checkedPractices = bestPractices.filter((practice) => practice.checked);
   const score = checkedPractices.length;
   document.querySelector(".grade").textContent = `Your Score: ${score}`;
+  if (score <= 5) {
+    document.querySelector(".level").textContent =
+      "Your Level: Beginner Developer";
+  } else if (score <= 10) {
+    document.querySelector(".level").textContent =
+      "Your Level: Intermediate Developer";
+  } else {
+    document.querySelector(".level").textContent =
+      "Your Level: Expert Developer";
+  }
 }
 document.addEventListener("DOMContentLoaded", function () {
   generateBestPracticesList();
