@@ -239,6 +239,49 @@ function generateAboutMe() {
 }
 function generateProject() {
   const projectContainer = document.querySelector(".project");
+  projectContainer.innerHTML = ""; // 清空现有内容
+  const title = document.createElement("h3");
+  title.textContent = "Projects";
+  title.className = "text-center mb-4 mt-4"; // 添加间距
+  projectContainer.appendChild(title);
+  project.forEach((item) => {
+    // 创建每一行的容器
+    const row = document.createElement("div");
+    row.className = "row mb-4"; // 添加间距
+
+    // 创建左侧（image）
+    const leftCol = document.createElement("div");
+    leftCol.className = "col-6";
+    leftCol.innerHTML = `
+      <div class="projectImage">
+        <img src="${item.image}" alt="${item.name}" class="img-fluid" />
+      </div>
+    `;
+
+    // 创建右侧（name + description + skills + status）
+    const rightCol = document.createElement("div");
+    rightCol.className = "col-6";
+    rightCol.innerHTML = `
+      <div class="projectName">
+        <h4>${item.name}</h4>
+      </div>
+      <div class="projectDescription">
+        <p>${item.description}</p>
+      </div>
+      <div class="projectSkills">
+        <p>Skills: ${item.skills.join(", ")}</p>
+      </div>
+      <div class="projectStatus">
+        <p>Status: ${item.status}</p>
+      </div>
+    `;
+
+    // 将左右列添加到行，再添加到容器
+    row.appendChild(leftCol);
+    row.appendChild(rightCol);
+
+    projectContainer.appendChild(row);
+  });
 }
 function updateScore() {
   const checkedPractices = bestPractices.filter((practice) => practice.checked);
@@ -257,6 +300,7 @@ function updateScore() {
 }
 document.addEventListener("DOMContentLoaded", function () {
   generateBestPracticesList();
+  generateProject();
   generateAboutMe();
   updateScore();
 });
