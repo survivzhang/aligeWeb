@@ -97,36 +97,67 @@ const project = [
     id: 1,
     name: "Blue crew",
     description:
-      "A project to develop a mobile application for a local restaurant.",
+      "A project to develop a mobile application for a local restaurant. The app allows customers to browse the menu, place orders, and track delivery status in real-time. It also includes a customer feedback section for continuous improvement. Built with React Native, Firebase, and focused on providing a seamless and user-friendly interface for restaurant customers.",
     skills: ["React Native", "Firebase", "UI/UX Design"],
     status: "Completed",
   },
   {
     id: 2,
     name: "Road to be programmer",
-    description: "A website to help beginners learn programming from scratch.",
+    description:
+      "A website to help beginners learn programming from scratch. The site features interactive tutorials, challenges, and a community forum where users can ask questions and share knowledge. It covers languages like Python, JavaScript, and HTML/CSS, with content tailored for people new to programming. It also includes code editors for hands-on practice and real-time feedback.",
     skills: ["React", "Node.js", "MongoDB"],
     status: "In Progress",
+  },
+  {
+    id: 3,
+    name: "Fitness Tracker",
+    description:
+      "A web application designed to help users track their fitness journey. The app allows users to log workouts, set goals, and monitor their progress through detailed graphs. It provides personalized fitness plans based on user preferences and goals. The backend is powered by Node.js and MongoDB, ensuring efficient storage of data and smooth user experience. Users can also share achievements on social media platforms.",
+    skills: ["React", "Node.js", "MongoDB", "Chart.js"],
+    status: "In Progress",
+  },
+  {
+    id: 4,
+    name: "Event Management System",
+    description:
+      "A comprehensive system to manage events for both organizers and participants. The platform provides tools for event scheduling, registration, ticketing, and live updates. Organizers can track attendee numbers, send reminders, and manage event logistics. Participants can view event details, register, and receive updates on their mobile devices. The application integrates payment gateways for ticket purchases, ensuring a seamless experience for both organizers and attendees.",
+    skills: ["Vue.js", "Express", "MySQL", "Stripe API"],
+    status: "Planned",
   },
 ];
 
 const aboutMe = [
   {
     id: 1,
-    hobby: "Basketball",
-    description: "I love playing basketball. It helps me relax and stay fit.",
+    hobby: "Reading",
+    description:
+      "I enjoy reading books on technology and self-improvement. Books allow me to gain new perspectives and improve my skills. From deep dives into emerging technologies like artificial intelligence to personal development books, reading helps me grow both professionally and personally. I believe continuous learning is key to success.",
+    image: /images/reading.png,
   },
   {
     id: 2,
-    hobby: "Reading",
-    description: "I enjoy reading books on technology and self-improvement.",
+    hobby: "Traveling",
+    description:
+      "I love to travel and explore new places and cultures. Traveling not only provides a break from the usual routine, but it also allows me to immerse myself in diverse cultures, traditions, and languages. Whether it's a backpacking trip through Europe or a cultural tour in Asia, every journey expands my worldview and adds unique experiences to my life.",
+    image: /images/travling.png,
   },
   {
     id: 3,
-    hobby: "Traveling",
-    description: "I love to travel and explore new places and cultures.",
+    hobby: "Photography",
+    description:
+      "Photography is another passion of mine. I enjoy capturing moments and scenes that tell a story. From landscapes to street photography, I love experimenting with different styles and techniques. Photography gives me the opportunity to express my creativity and preserve memories in a beautiful and meaningful way.",
+    image: /images/photo.png,
+  },
+  {
+    id: 4,
+    hobby: "Cooking",
+    description:
+      "Cooking is something I find both therapeutic and rewarding. Trying new recipes, exploring different cuisines, and experimenting with flavors allows me to unwind and enjoy the process of creating something from scratch. It's also a great way to bond with friends and family, as we share meals and experiences together.",
+    image: /images/cooking.png,
   },
 ];
+
 function generateBestPracticesList() {
   const listContainer = document.querySelector(".list-group");
   listContainer.innerHTML = "";
