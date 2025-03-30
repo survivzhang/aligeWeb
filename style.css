@@ -46,3 +46,23 @@
   margin-top: 25%;
   font-size: 20px;
 }
+.aboutMe {
+  color: var(--first-text-color);
+  text-align: left;
+  padding: 40px;
+  margin-bottom: 40px;
+}
+.aboutMeImage {
+  width: 400px;
+  height: 400px;
+  justify-self: end;
+}
+.aboutMeHobby {
+  text-align: center;
+  margin-top: 20px;
+}
+.aboutMeDescription {
+  margin-top: 40px;
+  align-items: center;
+  /*怎么让他自动在纵向剧中*/
+}

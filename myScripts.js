@@ -196,7 +196,50 @@ function generateBestPracticesList() {
     listContainer.appendChild(listItem);
   });
 }
-function generateProjectList() {}
+function generateAboutMe() {
+  const aboutMEContainer = document.querySelector(".aboutMe");
+  aboutMEContainer.innerHTML = ""; // 清空现有内容
+  const title = document.createElement("h3");
+  title.textContent = "About Me";
+  title.className = "text-center mb-4 mt-4"; // 添加间距
+  aboutMEContainer.appendChild(title);
+  aboutMe.forEach((item) => {
+    // 创建每一行的容器
+    const row = document.createElement("div");
+    row.className = "row mb-4"; // 添加间距
+
+    // 创建左侧（hobby + description）
+    const leftCol = document.createElement("div");
+    leftCol.className = "col-6";
+    leftCol.innerHTML = `
+      <div class="aboutMeHobby">
+        <h4>${item.hobby}</h4>
+      </div>
+      <div class="aboutMeDescription">
+        <p>${item.description}</p>
+      </div>
+    `;
+
+    // 创建右侧（image）
+    const rightCol = document.createElement("div");
+    rightCol.className = "col-6";
+    rightCol.innerHTML = `
+      <div class="aboutMeImage">
+        <img src="${item.image}" alt="${item.hobby}" class="img-fluid" />
+      </div>
+    `;
+
+    // 将左右列添加到行，再添加到容器
+
+    row.appendChild(leftCol);
+    row.appendChild(rightCol);
+
+    aboutMEContainer.appendChild(row);
+  });
+}
+function generateProject() {
+  const projectContainer = document.querySelector(".project");
+}
 function updateScore() {
   const checkedPractices = bestPractices.filter((practice) => practice.checked);
   const score = checkedPractices.length;
@@ -214,5 +257,6 @@ function updateScore() {
 }
 document.addEventListener("DOMContentLoaded", function () {
   generateBestPracticesList();
+  generateAboutMe();
   updateScore();
 });
