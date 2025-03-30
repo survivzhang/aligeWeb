@@ -66,3 +66,17 @@
   align-items: center;
   /*怎么让他自动在纵向剧中*/
 }
+.project {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  text-align: left;
+  padding: 40px;
+}
+.projectImage {
+  width: 550px;
+  height: 300px;
+}
+.projectName {
+  text-align: center;
+  margin-bottom: 20px;
+}
