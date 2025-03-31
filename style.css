@@ -324,3 +324,151 @@ body {
   color: var(--button-color);
   transform: scale(1.1);
 }
+
+/* 响应式设计 */
+@media (max-width: 1400px) {
+  .container {
+    max-width: 1200px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .container {
+    max-width: 1000px;
+  }
+
+  /* 调整字体大小 */
+  body {
+    font-size: 0.9rem;
+  }
+
+  /* 图片缩放 */
+  .aboutMeImage,
+  .projectImage {
+    max-width: 350px;
+    height: auto;
+  }
+}
+
+@media (max-width: 992px) {
+  /* 文字居中 */
+  .aboutMe,
+  .project {
+    text-align: center;
+  }
+
+  /* 段落居中 */
+  .aboutMe p,
+  .project p {
+    text-align: center;
+  }
+
+  /* 标题居中 */
+  .aboutMe h4,
+  .project h4 {
+    text-align: center;
+  }
+
+  /* 图片居中 */
+  .aboutMeImage,
+  .projectImage {
+    margin: 0 auto;
+    display: block;
+  }
+
+  /* 弹性布局居中 */
+  .about-item .row,
+  .project .row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* 确保内容居中 */
+  .aboutProgress,
+  .project-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* 技能标签居中 */
+  .project-skills {
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+}
+@media (max-width: 992px) {
+  /* 调整 standard 和 inform 的列宽 */
+  .score .col-8,
+  .score .col-4 {
+    width: 100%; /* 在小屏幕上占满整个宽度 */
+    max-width: 100%;
+    flex: 0 0 100%;
+  }
+
+  /* 可选：添加一些间距 */
+  .score .col-8,
+  .score .col-4 {
+    margin-bottom: 20px;
+  }
+
+  /* 确保内容居中 */
+  .score .col-8,
+  .score .col-4 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* 调整 outcome 样式 */
+  .outcome {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .outcome ul {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .outcome li {
+    text-align: center;
+    max-width: 90%;
+    width: 100%;
+  }
+}
+@media (max-width: 992px) {
+  .inform.row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .inform .col-4 {
+    width: 100%;
+    max-width: 400px; /* 可选：限制最大宽度 */
+    margin-bottom: 20px; /* 添加垂直间距 */
+    text-align: center;
+  }
+
+  .inform .col-4:nth-child(2) {
+    order: -1; /* 将图片移到顶部 */
+  }
+
+  .inform img {
+    margin: 0 auto; /* 图片居中 */
+    display: block;
+  }
+
+  .inform p {
+    text-align: center;
+  }
+}
