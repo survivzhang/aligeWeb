@@ -231,7 +231,9 @@ function generateAboutMe() {
           <div class="row">
             <div class="col-md-6">
               <h4>${item.hobby}</h4>
-              <p>${item.description}</p>
+              <div class="aboutProgress">
+                <p>${item.description}</p>
+              </div>
             </div>
             <div class="col-md-6">
               <img src="${item.image}" 
@@ -348,7 +350,7 @@ function generateProject() {
               <div class="col-md-6">
                 <div class="project-content">
                   <h4 class="mb-3">${item.name}</h4>
-                  <p class="text-muted mb-4">${item.description}</p>
+                  <p class="mb-4">${item.description}</p>
                   <div class="project-skills mb-3">
                     ${item.skills
                       .map(

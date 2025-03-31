@@ -4,108 +4,140 @@
   --first-text-color: #f0f8ff;
   --border-color: #a9a9a9;
   --button-color: #4682b4;
+
+  /* 间距变量 */
+  --spacing-xs: 10px;
+  --spacing-sm: 15px;
+  --spacing-md: 20px;
+  --spacing-lg: 30px;
+  --border-radius: 8px;
+
+  /* 过渡效果 */
+  --transition-fast: 0.3s ease;
+  --transition-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+/* 基础响应式设置 */
+html {
+  font-size: 16px;
+}
+
+@media (max-width: 1200px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+body {
+  font-size: 1rem;
+  line-height: 1.6;
+  letter-spacing: 0.5px;
+}
+
+/* 容器样式 */
 .container {
   background-color: var(--first-bg-color);
   color: var(--first-text-color);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius);
 }
+
 .standardpart {
   margin-right: 5px;
 }
+
+/* 列表样式 */
 .list-group-item {
   background-color: var(--second-bg-color);
   color: var(--first-text-color);
-  border-width: 0cap;
+  border-width: 0;
+  margin-bottom: var(--spacing-xs);
+  border-radius: var(--border-radius);
+  transition: background-color var(--transition-fast);
 }
+
+.list-group-item:hover {
+  background-color: rgba(48, 48, 48, 0.7);
+}
+
 .list-group-item p {
   text-align: left;
 }
+
+/* 成绩区域 */
 .outcome {
   display: flex;
-  flex-direction: column; /* Stack children vertically */
-  /* Keep other elements centered if you want them to be centered */
+  flex-direction: column;
   justify-content: center;
-  height: 100%; /* Ensure the container takes the full height */
+  height: 100%;
 }
+
 .outcome li {
   text-align: left;
-  margin-bottom: 10px;
+  margin-bottom: var(--spacing-xs);
 }
+
 .inform {
   text-align: center;
-  margin-top: 40px;
-  margin-bottom: 40px;
-  margin-left: 20px;
+  margin: var(--spacing-lg) var(--spacing-sm);
 }
+
 .level {
   align-items: center;
-  font-size: 30px;
+  font-size: 1.875rem;
 }
+
 .grade {
   align-items: center;
   margin-top: 25%;
-  font-size: 20px;
+  font-size: 1.25rem;
 }
+
+/* About Me 区域 */
 .aboutMe {
   color: var(--first-text-color);
   text-align: left;
-  margin-bottom: 40px;
-}
-.aboutMeImage {
-  width: 400px;
-  height: 500px;
-  justify-self: end;
-}
-.aboutMeHobby {
-  text-align: center;
-  margin-top: 20px;
-}
-.aboutMeDescription {
-  margin-top: 40px;
-  align-items: center;
-  /*怎么让他自动在纵向剧中*/
-}
-.project {
-  margin-top: 40px;
-  margin-bottom: 40px;
-  text-align: left;
-  padding: 40px;
-}
-.projectImage {
-  width: 550px;
-  height: 300px;
-  object-fit: contain;
-}
-.projectName {
-  text-align: center;
-  margin-bottom: 20px;
-}
-.reference {
-  margin-top: 40px;
-  margin-bottom: 40px;
-  text-align: left;
-  padding: 40px;
-}
-/* 保证内容间距 */
-.selfIntroduce {
-  padding: 30px 15px;
+  margin-top: 80px;
+  margin-bottom: var(--spacing-lg);
 }
 
-.reference {
-  margin-top: 40px;
-  border-top: 1px solid #dee2e6;
-}
-/* 分页容器 */
 .aboutMe .items-container {
   position: relative;
   min-height: 400px;
 }
+.aboutMe h4 {
+  margin-top: 10%;
+}
+.aboutProgress {
+  display: flex;
+  margin-top: 20%;
+  flex-direction: column;
+  height: 100%;
+}
+.aboutMeImage {
+  width: 100%;
+  max-width: 400px;
+  height: 500px;
+  margin-left: 10%;
+  object-fit: cover;
+  border-radius: var(--border-radius);
+  transition: transform var(--transition-fast);
+}
 
-/* 单个项目 */
+.aboutMeImage:hover {
+  transform: scale(1.02);
+}
+
 .about-item {
   opacity: 0;
   visibility: hidden;
-  transition: all 0.3s ease;
+  transition: all var(--transition-fast);
   position: absolute;
   width: 100%;
 }
@@ -116,54 +148,33 @@
   position: relative;
 }
 
-/* 导航点 */
+/* 导航点样式 */
 .nav-dots {
-  font-size: 24px;
+  font-size: 1.5rem;
+  text-align: center;
+  margin-top: var(--spacing-sm);
 }
 
 .dot {
   cursor: pointer;
   color: #666;
   margin: 0 5px;
-  transition: color 0.3s;
+  transition: color var(--transition-fast);
+  background: none;
+  border: none;
 }
 
 .dot.active {
   color: #fff;
 }
 
-/* 导航按钮 */
-.nav-arrows {
-  position: absolute;
-  top: 50%;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  transform: translateY(-50%);
+/* 项目区域 */
+.project {
+  margin: var(--spacing-lg) 0;
+  text-align: left;
+  padding: var(--spacing-lg);
 }
 
-.arrow {
-  cursor: pointer;
-  font-size: 32px;
-  padding: 0 20px;
-  background: rgba(0, 0, 0, 0.5);
-  border-radius: 4px;
-}
-@media (max-width: 768px) {
-  .nav-arrows {
-    display: none;
-  }
-
-  .nav-dots {
-    font-size: 18px;
-  }
-
-  .aboutMeImage {
-    height: 250px;
-  }
-}
-
-/* 轮播容器 */
 .project-carousel {
   position: relative;
   overflow: hidden;
@@ -174,18 +185,26 @@
   min-height: 500px;
 }
 
-/* 确保选择器正确 */
-.carousel-dots .dot.active {
-  color: #0d6efd;
-  transform: scale(1.3);
+.projectImage {
+  width: 100%;
+  max-width: 550px;
+  height: 300px;
+  object-fit: contain;
+  border-radius: var(--border-radius);
 }
 
+.projectName {
+  text-align: center;
+  margin-bottom: var(--spacing-md);
+}
+
+/* 项目轮播 */
 .project-item {
   position: absolute;
   width: 100%;
   opacity: 0;
   transform: translateX(100%);
-  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all var(--transition-slow);
   visibility: hidden;
 }
 
@@ -195,26 +214,25 @@
   visibility: visible;
 }
 
-/* 控制按钮 */
 .carousel-controls {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px;
-  margin-top: 30px;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
 }
 
-.dot {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  color: #6c757d;
-  cursor: pointer;
-  transition: color 0.3s;
-}
-
-.dot.active {
+.carousel-dots .dot.active {
   color: #0d6efd;
+  transform: scale(1.3);
+}
+
+/* 参考文献 */
+.reference {
+  margin: var(--spacing-lg) 0;
+  text-align: left;
+  padding: var(--spacing-lg);
+  border-top: 1px solid #dee2e6;
 }
 
 /* 状态指示器 */
@@ -249,14 +267,14 @@
 
 /* 图片悬停效果 */
 .project-image img {
-  transition: transform 0.3s ease;
+  transition: transform var(--transition-fast);
 }
 
 .project-image:hover img {
   transform: scale(1.03);
 }
 
-/* 成功横幅样式 */
+/* 成功横幅 */
 .success-banner {
   animation: fadeIn 0.5s ease;
   background-color: #28a745;
@@ -277,4 +295,32 @@
 .reward-content img {
   max-width: 200px;
   border: 3px solid #28a745;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .nav-dots {
+    font-size: 1.125rem;
+  }
+
+  .aboutMeImage {
+    height: 250px;
+  }
+
+  .aboutMe .row,
+  .project .row {
+    flex-direction: column;
+  }
+}
+
+/* 焦点和交互状态 */
+*:focus {
+  outline: 2px solid var(--button-color);
+  outline-offset: 2px;
+}
+
+.dot:hover,
+.dot:focus {
+  color: var(--button-color);
+  transform: scale(1.1);
 }
