@@ -210,29 +210,118 @@ function generateBestPracticesList() {
     listContainer.appendChild(listItem);
   });
 }
-// 修复后的生成函数
+
+// 全局变量
+let currentIndex = 0; // 当前显示项的索引
+let autoSwitchTimer; // 自动切换定时器
+const SWITCH_INTERVAL = 5000; // 自动切换间隔（5秒）
+
+// 生成About Me内容
 function generateAboutMe() {
   const container = document.querySelector(".aboutMe");
+
+  // 生成HTML结构
   container.innerHTML = `
-    <h3 class="text-center mb-4">About Me</h3> <!-- 添加标题 -->
-    ${aboutMe
-      .map(
-        (item) => `
-      <div class="row mb-4">
-        <div class="col-md-6">
-          <h4>${item.hobby}</h4>
-          <p>${item.description}</p>
+    <h3 class="text-center mb-4">About Me</h3>
+    <div class="items-container">
+      ${aboutMe
+        .map(
+          (item, index) => `
+        <div class="about-item ${index === 0 ? "active" : ""}">
+          <div class="row">
+            <div class="col-md-6">
+              <h4>${item.hobby}</h4>
+              <p>${item.description}</p>
+            </div>
+            <div class="col-md-6">
+              <img src="${item.image}" 
+                   class="aboutMeImage" 
+                   alt="${item.hobby}展示">
+            </div>
+          </div>
         </div>
-        <div class="col-md-6">
-          <img src="${item.image}" 
-               class="aboutMeImage" 
-               alt="${item.hobby}展示">
-        </div>
-      </div>
-    `
-      )
-      .join("")}
+      `
+        )
+        .join("")}
+    </div>
+    <div class="nav-dots text-center mt-4"></div>
   `;
+
+  // 创建导航点
+  const dotsContainer = container.querySelector(".nav-dots");
+  aboutMe.forEach((_, index) => {
+    const dot = document.createElement("span");
+    dot.className = `dot ${index === 0 ? "active" : ""}`;
+    dot.innerHTML = "●";
+    dot.addEventListener("click", () => switchItem(index));
+    dotsContainer.appendChild(dot);
+  });
+
+  // 键盘导航事件
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowLeft") prevItem();
+    if (e.key === "ArrowRight") nextItem();
+  });
+
+  // 初始化自动切换
+  startAutoSwitch();
+}
+
+// 切换展示项
+function switchItem(newIndex) {
+  const items = document.querySelectorAll(".about-item");
+  const dots = document.querySelectorAll(".dot");
+
+  // 边界检查
+  if (newIndex < 0) newIndex = items.length - 1;
+  if (newIndex >= items.length) newIndex = 0;
+
+  // 移除旧项的激活状态
+  items[currentIndex].classList.remove("active");
+  dots[currentIndex].classList.remove("active");
+
+  // 更新当前索引
+  currentIndex = newIndex;
+
+  // 添加新项的激活状态
+  items[currentIndex].classList.add("active");
+  dots[currentIndex].classList.add("active");
+
+  // 重置自动切换定时器
+  resetAutoSwitch();
+}
+
+// 切换到下一项
+function nextItem() {
+  switchItem(currentIndex + 1);
+}
+
+// 切换到前一项
+function prevItem() {
+  switchItem(currentIndex - 1);
+}
+
+// 启动自动切换
+function startAutoSwitch() {
+  autoSwitchTimer = setInterval(nextItem, SWITCH_INTERVAL);
+
+  // 页面隐藏时暂停自动切换
+  document.addEventListener("visibilitychange", handleVisibilityChange);
+}
+
+// 重置自动切换
+function resetAutoSwitch() {
+  clearInterval(autoSwitchTimer);
+  startAutoSwitch();
+}
+
+// 处理页面可见性变化
+function handleVisibilityChange() {
+  if (document.hidden) {
+    clearInterval(autoSwitchTimer);
+  } else {
+    startAutoSwitch();
+  }
 }
 
 function generateProject() {
@@ -281,6 +370,128 @@ function generateProject() {
     projectContainer.appendChild(row);
   });
 }
+
+let currentProject = 0;
+let projectInterval;
+
+function generateProject() {
+  const projectContainer = document.querySelector(".project");
+  projectContainer.innerHTML = `
+    <h3 class="text-center mb-4 mt-4">Projects</h3>
+    <div class="project-carousel">
+      <div class="project-items">
+        ${project
+          .map(
+            (item, index) => `
+          <div class="project-item ${index === 0 ? "active" : ""}">
+            <div class="row g-4">
+              <div class="col-md-6">
+                <div class="project-image">
+                  <img src="${item.image}" alt="${
+              item.name
+            }" class="img-fluid rounded-3 shadow" />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="project-content">
+                  <h4 class="mb-3">${item.name}</h4>
+                  <p class="text-muted mb-4">${item.description}</p>
+                  <div class="project-skills mb-3">
+                    ${item.skills
+                      .map(
+                        (skill) =>
+                          `<span class="badge bg-primary me-2">${skill}</span>`
+                      )
+                      .join("")}
+                  </div>
+                  <div class="project-status">
+                    <span class="status-indicator ${
+                      item.status === "Completed" ? "completed" : "in-progress"
+                    }"></span>
+                    ${item.status}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+          )
+          .join("")}
+      </div>
+      <div class="carousel-controls">
+        <button class="carousel-prev btn btn-secondary">❮</button>
+        <div class="carousel-dots"></div>
+        <button class="carousel-next btn btn-secondary">❯</button>
+      </div>
+    </div>
+  `;
+
+  // 初始化控制元素
+  initCarouselControls();
+  startAutoCarousel();
+}
+
+function initCarouselControls() {
+  // 创建指示点
+  const dotsContainer = document.querySelector(".carousel-dots");
+  project.forEach((_, index) => {
+    const dot = document.createElement("button");
+    dot.className = `dot ${index === 0 ? "active" : ""}`;
+    dot.innerHTML = "●";
+    dot.addEventListener("click", () => switchProject(index));
+    dotsContainer.appendChild(dot);
+  });
+
+  // 按钮事件
+  document
+    .querySelector(".carousel-prev")
+    .addEventListener("click", prevProject);
+  document
+    .querySelector(".carousel-next")
+    .addEventListener("click", nextProject);
+
+  // 键盘控制
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowLeft") prevProject();
+    if (e.key === "ArrowRight") nextProject();
+  });
+}
+
+function switchProject(index) {
+  const items = document.querySelectorAll(".project-item");
+  const dots = document.querySelectorAll(".carousel-dots .dot"); // 修正选择器
+
+  // 移除所有激活状态
+  items.forEach((item) => item.classList.remove("active"));
+  dots.forEach((dot) => dot.classList.remove("active"));
+
+  // 计算有效索引
+  currentProject = (index + project.length) % project.length;
+
+  // 添加新激活状态
+  items[currentProject].classList.add("active");
+  dots[currentProject].classList.add("active"); // 同步更新导航点
+}
+
+function nextProject() {
+  switchProject(currentProject + 1);
+}
+
+function prevProject() {
+  switchProject(currentProject - 1);
+}
+
+function startAutoCarousel() {
+  projectInterval = setInterval(nextProject, 8000);
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      clearInterval(projectInterval);
+    } else {
+      startAutoCarousel();
+    }
+  });
+}
+
 function updateScore() {
   const checkedPractices = bestPractices.filter((practice) => practice.checked);
   const score = checkedPractices.length;
