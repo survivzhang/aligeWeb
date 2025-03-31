@@ -1,93 +1,107 @@
 const bestPractices = [
   {
-    id: "codeingStandard",
-    label: "Choose Industry-Specific Coding Standards",
+    id: "1",
+    label: "HTML: Always Declare Document Type",
     description:
       "Adhering to industry-specific coding standards in software engineering makes writing correct code that matches product expectations easier. Writing code that will satisfy the end-users and meet business requirements becomes easier.",
     checked: false,
   },
   {
-    id: "codeReadability",
-    label: "Focus on Code readability",
+    id: "2",
+    label: "HTML: Use Lowercase Element Names",
     description:
       "Readable code is easy to follow and optimizes space and time.",
     checked: false,
   },
   {
-    id: "meaningfulNames",
-    label: "Meaningful Names",
+    id: "3",
+    label: "HTML: Meaningful Names",
     description:
       "Choose meaningful names that convey the purpose of the variable or function. Consistent naming conventions enhance clarity and maintainability.",
     checked: false,
   },
   {
-    id: "avoidSingleIdentifier",
-    label: "Avoid using a Single Identifier for multiple purposes",
+    id: "4",
+    label: "HTML: Close All HTML Elements",
     description:
       "Ascribe a name to each variable that clearly describes its purpose.",
     checked: false,
   },
   {
-    id: "addComments",
-    label: "Add Comments and Prioritize Documentation",
+    id: "5",
+    label: "HTML: Always Quote Attribute Values",
     description:
       "Comments serve as a form of documentation within the code, explaining the logic, functionality, or purpose of specific sections. Well-placed comments transform complex algorithms or intricate business rules into understandable pieces of information.",
     checked: false,
   },
   {
-    id: "efficientDataProcessing",
-    label: "Efficient Data Processing",
+    id: "6",
+    label: "CSS: Use a CSS Preprocessor",
     description:
       "Divide code into smaller, self-contained modules or functions for reusability and maintainability. Identify inefficient algorithms or data structures and refactor for better performance.",
     checked: false,
   },
   {
-    id: "effectiveVersionControl",
-    label: "Effective Version Control and Collaboration",
+    id: "7",
+    label: "CSS: Organize Your Code",
     description:
       "Ensure all developers follow consistent coding techniques. Use automation tools for version control workflows.",
     checked: false,
   },
   {
-    id: "effectiveCodeReview",
-    label: "Effective Code Review and Refactoring",
+    id: "8",
+    label: "CSS: Optimize your selector definitions",
     description:
       "Engage QA during refactoring to prevent new bugs. Isolate debugging from refactoring to maintain stability.",
     checked: false,
   },
   {
-    id: "formalizeExceptionHandling",
-    label: "Try to formalize Exception Handling",
+    id: "9",
+    label: "CSS: Understand CSS specificity rules",
     description:
       "Exception handling involves responding to these exceptions effectively.",
     checked: false,
   },
   {
-    id: "securityConsiderations",
-    label: "Security and Privacy Considerations",
+    id: "10",
+    label: "CSS: Avoid using the !important property",
     description:
       "Extract insights without compromising privacy. Acquire maximum insight from consented data for customer benefit.",
     checked: false,
   },
   {
-    id: "standardizeHeaders",
-    label: "Standardize Headers for Different Modules",
+    id: "11",
+    label: "JavaScript: Use Strict Mode",
     description:
       "It is easier to understand and maintain code when the headers of different modules align with a singular format.",
     checked: false,
   },
   {
-    id: "turnDailyBackups",
-    label: "Turn Daily Backups into an instinct",
+    id: "12",
+    label: "JavaScript: Avoid Global Variables",
     description:
       "Multiple events can trigger data loss – system crash, dead battery, software glitch, hardware damage, etc. To prevent this, save code daily, and after every modification, no matter how minuscule it may be, back up the workflow on TFS, SVN, or any other version control mechanism.",
     checked: false,
   },
   {
-    id: "chooseStandards",
-    label: "When choosing standards, think Closed vs. Open",
+    id: "13",
+    label: "JavaScript: Always Declare Local Variables",
     description:
       "Consider CERT vs. MISRA. CERT emphasizes community cooperation and participation.",
+    checked: false,
+  },
+  {
+    id: "14",
+    label: "JavaScript: Declare Objects with const",
+    description:
+      "Use version control systems like Git to track changes and collaborate with others. This allows for easy rollback and comparison of code versions.",
+    checked: false,
+  },
+  {
+    id: "15",
+    label: "JavaScript:Don't Use new Object()",
+    description:
+      "Use a consistent naming convention for variables and functions. This improves readability and maintainability.",
     checked: false,
   },
 ];
