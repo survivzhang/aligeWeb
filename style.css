@@ -49,12 +49,11 @@
 .aboutMe {
   color: var(--first-text-color);
   text-align: left;
-  padding: 40px;
   margin-bottom: 40px;
 }
 .aboutMeImage {
   width: 400px;
-  height: 400px;
+  height: 500px;
   justify-self: end;
 }
 .aboutMeHobby {
@@ -75,6 +74,7 @@
 .projectImage {
   width: 550px;
   height: 300px;
+  object-fit: contain;
 }
 .projectName {
   text-align: center;
@@ -85,4 +85,13 @@
   margin-bottom: 40px;
   text-align: left;
   padding: 40px;
+}
+/* 保证内容间距 */
+.selfIntroduce {
+  padding: 30px 15px;
+}
+
+.reference {
+  margin-top: 40px;
+  border-top: 1px solid #dee2e6;
 }

@@ -210,47 +210,31 @@ function generateBestPracticesList() {
     listContainer.appendChild(listItem);
   });
 }
+// 修复后的生成函数
 function generateAboutMe() {
-  const aboutMEContainer = document.querySelector(".aboutMe");
-  aboutMEContainer.innerHTML = ""; // 清空现有内容
-  const title = document.createElement("h3");
-  title.textContent = "About Me";
-  title.className = "text-center mb-4 mt-4"; // 添加间距
-  aboutMEContainer.appendChild(title);
-  aboutMe.forEach((item) => {
-    // 创建每一行的容器
-    const row = document.createElement("div");
-    row.className = "row mb-4"; // 添加间距
-
-    // 创建左侧（hobby + description）
-    const leftCol = document.createElement("div");
-    leftCol.className = "col-6";
-    leftCol.innerHTML = `
-      <div class="aboutMeHobby">
-        <h4>${item.hobby}</h4>
+  const container = document.querySelector(".aboutMe");
+  container.innerHTML = `
+    <h3 class="text-center mb-4">About Me</h3> <!-- 添加标题 -->
+    ${aboutMe
+      .map(
+        (item) => `
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <h4>${item.hobby}</h4>
+          <p>${item.description}</p>
+        </div>
+        <div class="col-md-6">
+          <img src="${item.image}" 
+               class="aboutMeImage" 
+               alt="${item.hobby}展示">
+        </div>
       </div>
-      <div class="aboutMeDescription">
-        <p>${item.description}</p>
-      </div>
-    `;
-
-    // 创建右侧（image）
-    const rightCol = document.createElement("div");
-    rightCol.className = "col-6";
-    rightCol.innerHTML = `
-      <div class="aboutMeImage">
-        <img src="${item.image}" alt="${item.hobby}" class="img-fluid" />
-      </div>
-    `;
-
-    // 将左右列添加到行，再添加到容器
-
-    row.appendChild(leftCol);
-    row.appendChild(rightCol);
-
-    aboutMEContainer.appendChild(row);
-  });
+    `
+      )
+      .join("")}
+  `;
 }
+
 function generateProject() {
   const projectContainer = document.querySelector(".project");
   projectContainer.innerHTML = ""; // 清空现有内容
