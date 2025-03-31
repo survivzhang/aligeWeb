@@ -483,7 +483,7 @@ function createSuccessBanner() {
 // 获取猫咪奖励（保持原有功能）
 async function fetchCatReward() {
   try {
-    const response = await fetch("https://cat-fact.herokuapp.com/facts/random");
+    const response = await fetch("https://api.thecatapi.com/v1/images/search");
     const data = await response.json();
 
     const rewardContent = document.querySelector(".reward-content");
