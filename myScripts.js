@@ -324,53 +324,6 @@ function handleVisibilityChange() {
   }
 }
 
-function generateProject() {
-  const projectContainer = document.querySelector(".project");
-  projectContainer.innerHTML = ""; // 清空现有内容
-  const title = document.createElement("h3");
-  title.textContent = "Projects";
-  title.className = "text-center mb-4 mt-4"; // 添加间距
-  projectContainer.appendChild(title);
-  project.forEach((item) => {
-    // 创建每一行的容器
-    const row = document.createElement("div");
-    row.className = "row mb-4"; // 添加间距
-
-    // 创建左侧（image）
-    const leftCol = document.createElement("div");
-    leftCol.className = "col-6";
-    leftCol.innerHTML = `
-      <div class="projectImage">
-        <img src="${item.image}" alt="${item.name}" class="img-fluid" />
-      </div>
-    `;
-
-    // 创建右侧（name + description + skills + status）
-    const rightCol = document.createElement("div");
-    rightCol.className = "col-6";
-    rightCol.innerHTML = `
-      <div class="projectName">
-        <h4>${item.name}</h4>
-      </div>
-      <div class="projectDescription">
-        <p>${item.description}</p>
-      </div>
-      <div class="projectSkills">
-        <p>Skills: ${item.skills.join(", ")}</p>
-      </div>
-      <div class="projectStatus">
-        <p>Status: ${item.status}</p>
-      </div>
-    `;
-
-    // 将左右列添加到行，再添加到容器
-    row.appendChild(leftCol);
-    row.appendChild(rightCol);
-
-    projectContainer.appendChild(row);
-  });
-}
-
 let currentProject = 0;
 let projectInterval;
 
@@ -505,6 +458,43 @@ function updateScore() {
   } else {
     document.querySelector(".level").textContent =
       "Your Level: Expert Developer";
+  }
+  const successBanner = document.querySelector(".success-banner");
+  if (score > 10) {
+    if (!successBanner) createSuccessBanner();
+    fetchCatReward();
+  } else if (successBanner) {
+    successBanner.remove();
+  }
+}
+function createSuccessBanner() {
+  const standardsList = document.querySelector(".grade");
+  const banner = document.createElement("div");
+  banner.className = "success-banner mt-3 p-3 bg-light border rounded";
+  banner.innerHTML = `
+    <h5 class="text-success">🎉 You Win!</h5>
+    <div class="reward-content"></div>
+  `;
+  standardsList.before(banner); // 在标准列表后插入
+}
+
+// 获取猫咪奖励（保持原有功能）
+async function fetchCatReward() {
+  try {
+    const response = await fetch("https://cat-fact.herokuapp.com/facts/random");
+    const data = await response.json();
+
+    const rewardContent = document.querySelector(".reward-content");
+    if (rewardContent) {
+      rewardContent.innerHTML = `
+        <p class="mb-2">${data.text}</p>
+        <img src="https://cataas.com/cat?${Date.now()}" 
+             alt="Victory Cat" 
+             class="img-fluid rounded">
+      `;
+    }
+  } catch (error) {
+    console.log("Failed to fetch cat:", error);
   }
 }
 document.addEventListener("DOMContentLoaded", function () {
