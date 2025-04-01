@@ -211,16 +211,13 @@ function generateBestPracticesList() {
   });
 }
 
-// 全局变量
-let currentIndex = 0; // 当前显示项的索引
-let autoSwitchTimer; // 自动切换定时器
-const SWITCH_INTERVAL = 5000; // 自动切换间隔（5秒）
+// About Me 部分
+let currentAboutMeIndex = 0;
+const ABOUT_ME_SWITCH_INTERVAL = 5000;
+let aboutMeSwitchTimer;
 
-// 生成About Me内容
 function generateAboutMe() {
   const container = document.querySelector(".aboutMe");
-
-  // 生成HTML结构
   container.innerHTML = `
     <h3 class="text-center mb-4">About Me</h3>
     <div class="items-container">
@@ -246,88 +243,63 @@ function generateAboutMe() {
         )
         .join("")}
     </div>
-    <div class="nav-dots text-center mt-4"></div>
+    <div class="nav-dots text-center mt-4">
+      ${aboutMe
+        .map(
+          (_, index) => `
+        <span class="dot ${index === 0 ? "active" : ""}">●</span>
+      `
+        )
+        .join("")}
+    </div>
   `;
 
-  // 创建导航点
-  const dotsContainer = container.querySelector(".nav-dots");
-  aboutMe.forEach((_, index) => {
-    const dot = document.createElement("span");
-    dot.className = `dot ${index === 0 ? "active" : ""}`;
-    dot.innerHTML = "●";
-    dot.addEventListener("click", () => switchItem(index));
-    dotsContainer.appendChild(dot);
+  const dots = container.querySelectorAll(".dot");
+  dots.forEach((dot, index) => {
+    dot.addEventListener("click", () => switchAboutMeItem(index));
   });
 
-  // 键盘导航事件
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowLeft") prevItem();
-    if (e.key === "ArrowRight") nextItem();
-  });
-
-  // 初始化自动切换
-  startAutoSwitch();
+  startAboutMeAutoSwitch();
 }
 
-// 切换展示项
-function switchItem(newIndex) {
+function switchAboutMeItem(newIndex) {
   const items = document.querySelectorAll(".about-item");
   const dots = document.querySelectorAll(".dot");
 
-  // 边界检查
+  // 边界处理
   if (newIndex < 0) newIndex = items.length - 1;
   if (newIndex >= items.length) newIndex = 0;
 
-  // 移除旧项的激活状态
-  items[currentIndex].classList.remove("active");
-  dots[currentIndex].classList.remove("active");
+  // 移除旧状态
+  items[currentAboutMeIndex].classList.remove("active");
+  dots[currentAboutMeIndex].classList.remove("active");
 
-  // 更新当前索引
-  currentIndex = newIndex;
+  // 添加新状态
+  items[newIndex].classList.add("active");
+  dots[newIndex].classList.add("active");
 
-  // 添加新项的激活状态
-  items[currentIndex].classList.add("active");
-  dots[currentIndex].classList.add("active");
+  // 更新索引
+  currentAboutMeIndex = newIndex;
 
-  // 重置自动切换定时器
-  resetAutoSwitch();
+  // 重置定时器
+  resetAboutMeAutoSwitch();
 }
 
-// 切换到下一项
-function nextItem() {
-  switchItem(currentIndex + 1);
+function startAboutMeAutoSwitch() {
+  aboutMeSwitchTimer = setInterval(() => {
+    switchAboutMeItem(currentAboutMeIndex + 1);
+  }, ABOUT_ME_SWITCH_INTERVAL);
 }
 
-// 切换到前一项
-function prevItem() {
-  switchItem(currentIndex - 1);
+function resetAboutMeAutoSwitch() {
+  clearInterval(aboutMeSwitchTimer);
+  startAboutMeAutoSwitch();
 }
 
-// 启动自动切换
-function startAutoSwitch() {
-  autoSwitchTimer = setInterval(nextItem, SWITCH_INTERVAL);
-
-  // 页面隐藏时暂停自动切换
-  document.addEventListener("visibilitychange", handleVisibilityChange);
-}
-
-// 重置自动切换
-function resetAutoSwitch() {
-  clearInterval(autoSwitchTimer);
-  startAutoSwitch();
-}
-
-// 处理页面可见性变化
-function handleVisibilityChange() {
-  if (document.hidden) {
-    clearInterval(autoSwitchTimer);
-  } else {
-    startAutoSwitch();
-  }
-}
-
-const currentProject = 0;
-const projectInterval = 3000;
+// Project 部分
+let currentProjectIndex = 0;
+const PROJECT_SWITCH_INTERVAL = 8000;
+let projectSwitchTimer;
 
 function generateProject() {
   const projectContainer = document.querySelector(".project");
@@ -342,9 +314,9 @@ function generateProject() {
             <div class="row g-4">
               <div class="col-md-6">
                 <div class="project-image">
-                  <img src="${item.image}" alt="${
-              item.name
-            }" class="img-fluid rounded-3 shadow" />
+                  <img src="${item.image}" 
+                       alt="${item.name}" 
+                       class="img-fluid rounded-3 shadow" />
                 </div>
               </div>
               <div class="col-md-6">
@@ -375,76 +347,72 @@ function generateProject() {
       </div>
       <div class="carousel-controls">
         <button class="carousel-prev btn btn-secondary">❮</button>
-        <div class="carousel-dots"></div>
+        <div class="carousel-dots">
+          ${project
+            .map(
+              (_, index) => `
+            <span class="dot ${index === 0 ? "active" : ""}">●</span>
+          `
+            )
+            .join("")}
+        </div>
         <button class="carousel-next btn btn-secondary">❯</button>
       </div>
     </div>
   `;
 
-  // 初始化控制元素
-  initCarouselControls();
-  startAutoCarousel();
-}
-
-function initCarouselControls() {
-  // 创建指示点
-  const dotsContainer = document.querySelector(".carousel-dots");
-  project.forEach((_, index) => {
-    const dot = document.createElement("button");
-    dot.className = `dot ${index === 0 ? "active" : ""}`;
-    dot.innerHTML = "●";
-    dot.addEventListener("click", () => switchProject(index));
-    dotsContainer.appendChild(dot);
+  const dots = projectContainer.querySelectorAll(".carousel-dots .dot");
+  dots.forEach((dot, index) => {
+    dot.addEventListener("click", () => switchProjectItem(index));
   });
 
   // 按钮事件
-  document
+  projectContainer
     .querySelector(".carousel-prev")
-    .addEventListener("click", prevProject);
-  document
+    .addEventListener("click", () =>
+      switchProjectItem(currentProjectIndex - 1)
+    );
+  projectContainer
     .querySelector(".carousel-next")
-    .addEventListener("click", nextProject);
+    .addEventListener("click", () =>
+      switchProjectItem(currentProjectIndex + 1)
+    );
 
-  // 键盘控制
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowLeft") prevProject();
-    if (e.key === "ArrowRight") nextProject();
-  });
+  startProjectAutoSwitch();
 }
 
-function switchProject(index) {
+function switchProjectItem(newIndex) {
   const items = document.querySelectorAll(".project-item");
-  const dots = document.querySelectorAll(".carousel-dots .dot"); // 修正选择器
+  const dots = document.querySelectorAll(".carousel-dots .dot");
 
-  // 移除所有激活状态
-  items.forEach((item) => item.classList.remove("active"));
-  dots.forEach((dot) => dot.classList.remove("active"));
+  // 边界处理
+  if (newIndex < 0) newIndex = items.length - 1;
+  if (newIndex >= items.length) newIndex = 0;
 
-  // 计算有效索引
-  currentProject = (index + project.length) % project.length;
+  // 移除旧状态
+  items[currentProjectIndex].classList.remove("active");
+  dots[currentProjectIndex].classList.remove("active");
 
-  // 添加新激活状态
-  items[currentProject].classList.add("active");
-  dots[currentProject].classList.add("active"); // 同步更新导航点
+  // 添加新状态
+  items[newIndex].classList.add("active");
+  dots[newIndex].classList.add("active");
+
+  // 更新索引
+  currentProjectIndex = newIndex;
+
+  // 重置定时器
+  resetProjectAutoSwitch();
 }
 
-function nextProject() {
-  switchProject(currentProject + 1);
+function startProjectAutoSwitch() {
+  projectSwitchTimer = setInterval(() => {
+    switchProjectItem(currentProjectIndex + 1);
+  }, PROJECT_SWITCH_INTERVAL);
 }
 
-function prevProject() {
-  switchProject(currentProject - 1);
-}
-
-function startAutoCarousel() {
-  projectInterval = setInterval(nextProject, 8000);
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) {
-      clearInterval(projectInterval);
-    } else {
-      startAutoCarousel();
-    }
-  });
+function resetProjectAutoSwitch() {
+  clearInterval(projectSwitchTimer);
+  startProjectAutoSwitch();
 }
 
 function updateScore() {
