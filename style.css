@@ -368,6 +368,20 @@ body {
   .project h4 {
     text-align: center;
   }
+  .about-prev {
+    position: relative;
+    z-index: 10; /* Ensure it's above other elements */
+  }
+  .about-me-controls {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  .about-prev,
+  .about-next {
+    min-width: 120px; /* Ensure enough space for the button */
+    padding: 0.5rem 1.5rem;
+  }
 
   /* 图片居中 */
   .aboutMeImage,
@@ -471,4 +485,114 @@ body {
   .inform p {
     text-align: center;
   }
+}
+/* 新增按钮控制区专用样式 */
+.about-me-controls {
+  position: relative;
+  z-index: 1000; /* 确保控制栏在最顶层 */
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.about-prev,
+.about-next {
+  position: relative;
+  min-width: 120px;
+  padding: 0.75rem 1.5rem;
+  transition: transform 0.2s ease;
+  z-index: 1001; /* 确保按钮在控制栏之上 */
+}
+
+.about-prev:hover,
+.about-next:hover {
+  transform: translateY(-2px);
+}
+
+/* 修复项目项层级问题 */
+.about-item {
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition-fast);
+  position: absolute;
+  width: 100%;
+  z-index: 1; /* 内容在底层 */
+}
+
+.about-item.active {
+  opacity: 1;
+  visibility: visible;
+  position: relative;
+  z-index: 2; /* 激活内容在中层 */
+}
+
+/* 新增保护层防止内容覆盖 */
+.aboutMe::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999; /* 控制栏下方保护层 */
+  pointer-events: none;
+}
+
+/* 移动端优化 */
+@media (max-width: 992px) {
+  .aboutMe {
+    margin-top: 40px;
+    position: relative; /* 创建新层叠上下文 */
+  }
+
+  .about-me-controls {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1.5rem;
+    z-index: 2000; /* 移动端更高层级 */
+  }
+
+  .about-prev,
+  .about-next {
+    width: 100%;
+    max-width: 300px;
+    margin: 0.5rem 0;
+  }
+
+  /* 修复图片容器溢出问题 */
+  .aboutMeImage {
+    margin-left: 0;
+    height: auto;
+    max-height: 400px;
+  }
+
+  /* 增加点击热区 */
+  .about-prev::after {
+    content: "";
+    position: absolute;
+    top: -10px;
+    bottom: -10px;
+    left: -10px;
+    right: -10px;
+    background: transparent;
+  }
+}
+
+/* 新增按钮状态反馈 */
+.about-prev:active,
+.about-next:active {
+  transform: translateY(1px);
+}
+
+.about-prev:disabled,
+.about-next:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* 确保容器不会裁剪内容 */
+.aboutMe .items-container {
+  overflow: visible; /* 关键修复 */
+  position: relative;
 }

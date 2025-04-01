@@ -243,40 +243,39 @@ function generateAboutMe() {
         )
         .join("")}
     </div>
-    <div class="nav-dots text-center mt-4">
-      ${aboutMe
-        .map(
-          (_, index) => `
-        <span class="dot ${index === 0 ? "active" : ""}">●</span>
-      `
-        )
-        .join("")}
+    <div class="about-me-controls text-center mt-4">
+      <button type="button" class="btn btn-secondary about-prev">Previous</button>
+      <button type="button" class="btn btn-secondary about-next">Next</button>
     </div>
   `;
 
-  const dots = container.querySelectorAll(".dot");
-  dots.forEach((dot, index) => {
-    dot.addEventListener("click", () => switchAboutMeItem(index));
-  });
+  // 添加事件监听器
+  const prevButton = container.querySelector(".about-prev");
+  const nextButton = container.querySelector(".about-next");
+  if (prevButton) {
+    prevButton.addEventListener("click", prevItem);
+  } else {
+    console.error("Previous button not found!");
+  }
 
+  // 保持原有next按钮逻辑
+  if (nextButton) {
+    nextButton.addEventListener("click", nextItem);
+  }
   startAboutMeAutoSwitch();
 }
 
-function switchAboutMeItem(newIndex) {
+function switchItem(newIndex) {
   const items = document.querySelectorAll(".about-item");
-  const dots = document.querySelectorAll(".dot");
 
-  // 边界处理
-  if (newIndex < 0) newIndex = items.length - 1;
-  if (newIndex >= items.length) newIndex = 0;
+  // 确保索引在有效范围内
+  newIndex = ((newIndex % items.length) + items.length) % items.length;
 
-  // 移除旧状态
-  items[currentAboutMeIndex].classList.remove("active");
-  dots[currentAboutMeIndex].classList.remove("active");
+  // 移除所有激活状态
+  items.forEach((item) => item.classList.remove("active"));
 
   // 添加新状态
   items[newIndex].classList.add("active");
-  dots[newIndex].classList.add("active");
 
   // 更新索引
   currentAboutMeIndex = newIndex;
@@ -285,9 +284,17 @@ function switchAboutMeItem(newIndex) {
   resetAboutMeAutoSwitch();
 }
 
+function nextItem() {
+  switchItem(currentAboutMeIndex + 1);
+}
+
+function prevItem() {
+  switchItem(currentAboutMeIndex - 1);
+}
+
 function startAboutMeAutoSwitch() {
   aboutMeSwitchTimer = setInterval(() => {
-    switchAboutMeItem(currentAboutMeIndex + 1);
+    switchItem(currentAboutMeIndex + 1);
   }, ABOUT_ME_SWITCH_INTERVAL);
 }
 
@@ -295,7 +302,6 @@ function resetAboutMeAutoSwitch() {
   clearInterval(aboutMeSwitchTimer);
   startAboutMeAutoSwitch();
 }
-
 // Project 部分
 let currentProjectIndex = 0;
 const PROJECT_SWITCH_INTERVAL = 8000;
