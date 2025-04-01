@@ -326,8 +326,8 @@ function handleVisibilityChange() {
   }
 }
 
-let currentProject = 0;
-let projectInterval;
+const currentProject = 0;
+const projectInterval = 3000;
 
 function generateProject() {
   const projectContainer = document.querySelector(".project");
@@ -483,20 +483,30 @@ function createSuccessBanner() {
 // 获取猫咪奖励（保持原有功能）
 async function fetchCatReward() {
   try {
-    const response = await fetch("https://api.thecatapi.com/v1/images/search");
-    const data = await response.json();
+    // 获取猫咪图片
+    const imageResponse = await fetch(
+      "https://api.thecatapi.com/v1/images/search"
+    );
+    const imageData = await imageResponse.json();
+    const catImageUrl = imageData[0].url;
 
     const rewardContent = document.querySelector(".reward-content");
     if (rewardContent) {
       rewardContent.innerHTML = `
-        <p class="mb-2">${data.text}</p>
-        <img src="https://cataas.com/cat?${Date.now()}" 
+        <img src="${catImageUrl}" 
              alt="Victory Cat" 
              class="img-fluid rounded">
       `;
     }
   } catch (error) {
     console.log("Failed to fetch cat:", error);
+
+    const rewardContent = document.querySelector(".reward-content");
+    if (rewardContent) {
+      rewardContent.innerHTML = `
+        <p class="text-danger">Unable to fetch cat reward.</p>
+      `;
+    }
   }
 }
 document.addEventListener("DOMContentLoaded", function () {
