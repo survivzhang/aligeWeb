@@ -483,9 +483,14 @@ async function fetchCatReward() {
     }
   }
 }
+
 document.addEventListener("DOMContentLoaded", function () {
   generateBestPracticesList();
   generateProject();
   generateAboutMe();
   updateScore();
+});
+document.addEventListener("DOMContentLoaded", function () {
+  generateProject();
+  generateAboutMe();
 });

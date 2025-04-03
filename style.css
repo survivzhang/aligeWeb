@@ -4,34 +4,18 @@
   --first-text-color: #f0f8ff;
   --border-color: #a9a9a9;
   --button-color: #4682b4;
-
-  /* 间距变量 */
   --spacing-xs: 10px;
   --spacing-sm: 15px;
   --spacing-md: 20px;
   --spacing-lg: 30px;
   --border-radius: 8px;
-
-  /* 过渡效果 */
   --transition-fast: 0.3s ease;
   --transition-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* 基础响应式设置 */
+/* Base styles */
 html {
   font-size: 16px;
-}
-
-@media (max-width: 1200px) {
-  html {
-    font-size: 15px;
-  }
-}
-
-@media (max-width: 768px) {
-  html {
-    font-size: 14px;
-  }
 }
 
 body {
@@ -40,7 +24,7 @@ body {
   letter-spacing: 0.5px;
 }
 
-/* 容器样式 */
+/* Container styles */
 .container {
   background-color: var(--first-bg-color);
   color: var(--first-text-color);
@@ -52,7 +36,7 @@ body {
   margin-right: 5px;
 }
 
-/* 列表样式 */
+/* List styles */
 .list-group-item {
   background-color: var(--second-bg-color);
   color: var(--first-text-color);
@@ -70,7 +54,7 @@ body {
   text-align: left;
 }
 
-/* 成绩区域 */
+/* Score/outcome area */
 .outcome {
   display: flex;
   flex-direction: column;
@@ -99,7 +83,7 @@ body {
   font-size: 1.25rem;
 }
 
-/* About Me 区域 */
+/* About Me section */
 .aboutMe {
   color: var(--first-text-color);
   text-align: left;
@@ -110,16 +94,20 @@ body {
 .aboutMe .items-container {
   position: relative;
   min-height: 400px;
+  overflow: visible;
 }
+
 .aboutMe h4 {
   margin-top: 10%;
 }
+
 .aboutProgress {
   display: flex;
   margin-top: 20%;
   flex-direction: column;
   height: 100%;
 }
+
 .aboutMeImage {
   width: 100%;
   max-width: 400px;
@@ -134,21 +122,24 @@ body {
   transform: scale(1.02);
 }
 
+/* About item transitions */
 .about-item {
   opacity: 0;
   visibility: hidden;
   transition: all var(--transition-fast);
   position: absolute;
   width: 100%;
+  z-index: 1;
 }
 
 .about-item.active {
   opacity: 1;
   visibility: visible;
   position: relative;
+  z-index: 2;
 }
 
-/* 导航点样式 */
+/* Navigation dots */
 .nav-dots {
   font-size: 1.5rem;
   text-align: center;
@@ -168,7 +159,13 @@ body {
   color: #fff;
 }
 
-/* 项目区域 */
+.dot:hover,
+.dot:focus {
+  color: var(--button-color);
+  transform: scale(1.1);
+}
+
+/* Project section */
 .project {
   margin: var(--spacing-lg) 0;
   text-align: left;
@@ -198,7 +195,7 @@ body {
   margin-bottom: var(--spacing-md);
 }
 
-/* 项目轮播 */
+/* Project carousel */
 .project-item {
   position: absolute;
   width: 100%;
@@ -227,7 +224,7 @@ body {
   transform: scale(1.3);
 }
 
-/* 参考文献 */
+/* Reference section - Optimized */
 .reference {
   margin: var(--spacing-lg) 0;
   text-align: left;
@@ -235,7 +232,20 @@ body {
   border-top: 1px solid #dee2e6;
 }
 
-/* 状态指示器 */
+.reference ul {
+  padding-left: 1rem;
+}
+
+.reference li {
+  margin-bottom: 0.75rem;
+}
+
+.reference p {
+  margin-bottom: 0.5rem;
+  word-wrap: break-word;
+}
+
+/* Status indicators */
 .status-indicator {
   display: inline-block;
   width: 12px;
@@ -265,7 +275,7 @@ body {
   }
 }
 
-/* 图片悬停效果 */
+/* Image effects */
 .project-image img {
   transition: transform var(--transition-fast);
 }
@@ -274,7 +284,7 @@ body {
   transform: scale(1.03);
 }
 
-/* 成功横幅 */
+/* Success banner */
 .success-banner {
   animation: fadeIn 0.5s ease;
   background-color: #28a745;
@@ -297,52 +307,61 @@ body {
   border: 3px solid #28a745;
 }
 
-/* 响应式调整 */
-@media (max-width: 768px) {
-  .nav-dots {
-    font-size: 1.125rem;
-  }
-
-  .aboutMeImage {
-    height: 250px;
-  }
-
-  .aboutMe .row,
-  .project .row {
-    flex-direction: column;
-  }
-}
-
-/* 焦点和交互状态 */
+/* Focus states */
 *:focus {
   outline: 2px solid var(--button-color);
   outline-offset: 2px;
 }
 
-.dot:hover,
-.dot:focus {
-  color: var(--button-color);
-  transform: scale(1.1);
+/* About Me controls */
+.about-me-controls {
+  position: relative;
+  z-index: 1000;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
 }
 
-/* 响应式设计 */
-@media (max-width: 1400px) {
-  .container {
-    max-width: 1200px;
-  }
+.about-prev,
+.about-next {
+  position: relative;
+  min-width: 120px;
+  padding: 0.75rem 1.5rem;
+  transition: transform 0.2s ease;
+  z-index: 1001;
 }
 
+.about-prev:hover,
+.about-next:hover {
+  transform: translateY(-2px);
+}
+
+.about-prev:active,
+.about-next:active {
+  transform: translateY(1px);
+}
+
+.about-prev:disabled,
+.about-next:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Responsive styles */
 @media (max-width: 1200px) {
+  html {
+    font-size: 15px;
+  }
+
   .container {
     max-width: 1000px;
   }
 
-  /* 调整字体大小 */
   body {
     font-size: 0.9rem;
   }
 
-  /* 图片缩放 */
   .aboutMeImage,
   .projectImage {
     max-width: 350px;
@@ -351,96 +370,71 @@ body {
 }
 
 @media (max-width: 992px) {
-  /* 文字居中 */
+  /* Text alignment */
   .aboutMe,
-  .project {
-    text-align: center;
-  }
-
-  /* 段落居中 */
+  .project,
   .aboutMe p,
-  .project p {
-    text-align: center;
-  }
-
-  /* 标题居中 */
+  .project p,
   .aboutMe h4,
   .project h4 {
     text-align: center;
   }
-  .about-prev {
-    position: relative;
-    z-index: 10; /* Ensure it's above other elements */
-  }
+
+  /* Control positioning */
   .about-me-controls {
     display: flex;
     justify-content: center;
     width: 100%;
   }
+
   .about-prev,
   .about-next {
-    min-width: 120px; /* Ensure enough space for the button */
+    min-width: 120px;
     padding: 0.5rem 1.5rem;
   }
 
-  /* 图片居中 */
+  /* Image centering */
   .aboutMeImage,
   .projectImage {
     margin: 0 auto;
     display: block;
   }
 
-  /* 弹性布局居中 */
+  /* Layout adjustments */
   .about-item .row,
   .project .row {
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
   }
 
-  /* 确保内容居中 */
   .aboutProgress,
   .project-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
   }
 
-  /* 技能标签居中 */
   .project-skills {
     justify-content: center;
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
   }
-}
-@media (max-width: 992px) {
-  /* 调整 standard 和 inform 的列宽 */
+
+  /* Score section */
   .score .col-8,
   .score .col-4 {
-    width: 100%; /* 在小屏幕上占满整个宽度 */
+    width: 100%;
     max-width: 100%;
     flex: 0 0 100%;
-  }
-
-  /* 可选：添加一些间距 */
-  .score .col-8,
-  .score .col-4 {
     margin-bottom: 20px;
-  }
-
-  /* 确保内容居中 */
-  .score .col-8,
-  .score .col-4 {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
   }
 
-  /* 调整 outcome 样式 */
   .outcome {
     width: 100%;
     max-width: 100%;
@@ -458,8 +452,8 @@ body {
     max-width: 90%;
     width: 100%;
   }
-}
-@media (max-width: 992px) {
+
+  /* Information section */
   .inform.row {
     display: flex;
     flex-direction: column;
@@ -468,89 +462,84 @@ body {
 
   .inform .col-4 {
     width: 100%;
-    max-width: 400px; /* 可选：限制最大宽度 */
-    margin-bottom: 20px; /* 添加垂直间距 */
+    max-width: 400px;
+    margin-bottom: 20px;
     text-align: center;
   }
 
   .inform .col-4:nth-child(2) {
-    order: -1; /* 将图片移到顶部 */
+    order: -1;
   }
 
   .inform img {
-    margin: 0 auto; /* 图片居中 */
+    margin: 0 auto;
     display: block;
   }
 
   .inform p {
     text-align: center;
   }
-}
-/* 新增按钮控制区专用样式 */
-.about-me-controls {
-  position: relative;
-  z-index: 1000; /* 确保控制栏在最顶层 */
-  margin-top: 2rem;
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
+
+  /* Reference section adjustments */
+  .reference {
+    padding: var(--spacing-md);
+  }
+
+  .reference ul {
+    padding-left: 0.5rem;
+  }
+
+  .reference li {
+    margin-bottom: 1rem;
+  }
+
+  .reference p {
+    font-size: 0.9rem;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+  }
 }
 
-.about-prev,
-.about-next {
-  position: relative;
-  min-width: 120px;
-  padding: 0.75rem 1.5rem;
-  transition: transform 0.2s ease;
-  z-index: 1001; /* 确保按钮在控制栏之上 */
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+
+  .nav-dots {
+    font-size: 1.125rem;
+  }
+
+  .aboutMeImage {
+    height: 250px;
+  }
+
+  /* Reference section mobile adjustments */
+  .reference {
+    padding: var(--spacing-sm);
+  }
+
+  .reference li {
+    list-style-position: inside;
+  }
+
+  .reference p {
+    font-size: 0.85rem;
+    margin-left: 0;
+  }
 }
 
-.about-prev:hover,
-.about-next:hover {
-  transform: translateY(-2px);
-}
-
-/* 修复项目项层级问题 */
-.about-item {
-  opacity: 0;
-  visibility: hidden;
-  transition: all var(--transition-fast);
-  position: absolute;
-  width: 100%;
-  z-index: 1; /* 内容在底层 */
-}
-
-.about-item.active {
-  opacity: 1;
-  visibility: visible;
-  position: relative;
-  z-index: 2; /* 激活内容在中层 */
-}
-
-/* 新增保护层防止内容覆盖 */
-.aboutMe::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 999; /* 控制栏下方保护层 */
-  pointer-events: none;
-}
-
-/* 移动端优化 */
 @media (max-width: 992px) {
   .aboutMe {
     margin-top: 40px;
-    position: relative; /* 创建新层叠上下文 */
+    position: relative;
   }
 
   .about-me-controls {
     flex-direction: column;
     align-items: center;
     margin-top: 1.5rem;
-    z-index: 2000; /* 移动端更高层级 */
+    z-index: 2000;
   }
 
   .about-prev,
@@ -560,39 +549,9 @@ body {
     margin: 0.5rem 0;
   }
 
-  /* 修复图片容器溢出问题 */
   .aboutMeImage {
     margin-left: 0;
     height: auto;
     max-height: 400px;
   }
-
-  /* 增加点击热区 */
-  .about-prev::after {
-    content: "";
-    position: absolute;
-    top: -10px;
-    bottom: -10px;
-    left: -10px;
-    right: -10px;
-    background: transparent;
-  }
-}
-
-/* 新增按钮状态反馈 */
-.about-prev:active,
-.about-next:active {
-  transform: translateY(1px);
-}
-
-.about-prev:disabled,
-.about-next:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-/* 确保容器不会裁剪内容 */
-.aboutMe .items-container {
-  overflow: visible; /* 关键修复 */
-  position: relative;
 }
