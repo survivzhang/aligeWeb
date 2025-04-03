@@ -213,8 +213,6 @@ function generateBestPracticesList() {
 
 // About Me 部分
 let currentAboutMeIndex = 0;
-const ABOUT_ME_SWITCH_INTERVAL = 5000;
-let aboutMeSwitchTimer;
 
 function generateAboutMe() {
   const container = document.querySelector(".aboutMe");
@@ -248,21 +246,8 @@ function generateAboutMe() {
       <button type="button" class="btn btn-secondary about-next">Next</button>
     </div>
   `;
-
-  // 添加事件监听器
-  const prevButton = container.querySelector(".about-prev");
-  const nextButton = container.querySelector(".about-next");
-  if (prevButton) {
-    prevButton.addEventListener("click", prevItem);
-  } else {
-    console.error("Previous button not found!");
-  }
-
-  // 保持原有next按钮逻辑
-  if (nextButton) {
-    nextButton.addEventListener("click", nextItem);
-  }
-  startAboutMeAutoSwitch();
+  container.querySelector(".about-prev").addEventListener("click", prevItem);
+  container.querySelector(".about-next").addEventListener("click", nextItem);
 }
 
 function switchItem(newIndex) {
@@ -272,16 +257,12 @@ function switchItem(newIndex) {
   newIndex = ((newIndex % items.length) + items.length) % items.length;
 
   // 移除所有激活状态
-  items.forEach((item) => item.classList.remove("active"));
-
-  // 添加新状态
-  items[newIndex].classList.add("active");
+  items.forEach((item, index) => {
+    item.classList.toggle("active", index === newIndex);
+  });
 
   // 更新索引
   currentAboutMeIndex = newIndex;
-
-  // 重置定时器
-  resetAboutMeAutoSwitch();
 }
 
 function nextItem() {
@@ -292,19 +273,9 @@ function prevItem() {
   switchItem(currentAboutMeIndex - 1);
 }
 
-function startAboutMeAutoSwitch() {
-  aboutMeSwitchTimer = setInterval(() => {
-    switchItem(currentAboutMeIndex + 1);
-  }, ABOUT_ME_SWITCH_INTERVAL);
-}
-
-function resetAboutMeAutoSwitch() {
-  clearInterval(aboutMeSwitchTimer);
-  startAboutMeAutoSwitch();
-}
 // Project 部分
 let currentProjectIndex = 0;
-const PROJECT_SWITCH_INTERVAL = 8000;
+const PROJECT_SWITCH_INTERVAL = 5000;
 let projectSwitchTimer;
 
 function generateProject() {
