@@ -1,3 +1,5 @@
+// List of best practices for HTML, CSS, and JavaScript
+
 const bestPractices = [
   {
     id: "1",
@@ -105,7 +107,7 @@ const bestPractices = [
     checked: false,
   },
 ];
-
+// List of projects
 const project = [
   {
     id: 1,
@@ -144,7 +146,7 @@ const project = [
     image: "./images/event.png",
   },
 ];
-
+// List of hobbies and about me section
 const aboutMe = [
   {
     id: 1,
@@ -176,6 +178,7 @@ const aboutMe = [
   },
 ];
 
+// Function to generate best practices list dynamically
 function generateBestPracticesList() {
   const listContainer = document.querySelector(".list-group");
   listContainer.innerHTML = "";
@@ -195,7 +198,7 @@ function generateBestPracticesList() {
     input.addEventListener("change", function () {
       localStorage.setItem(practice.id, this.checked); // Store "true" or "false" this represents the state of the checkbox, not the value of the practice.checked property
       practice.checked = this.checked;
-      updateScore();
+      updateScore(); // Update score based on checked practices
     });
     const label = document.createElement("label");
     label.className = "form-check-label";
@@ -211,7 +214,7 @@ function generateBestPracticesList() {
   });
 }
 
-// About Me 部分
+// Function to generate About Me section dynamically
 let currentAboutMeIndex = 0;
 
 function generateAboutMe() {
@@ -233,7 +236,7 @@ function generateAboutMe() {
             <div class="col-md-6">
               <img src="${item.image}" 
                    class="aboutMeImage" 
-                   alt="${item.hobby}展示">
+                   alt="${item.hobby}showing" />
             </div>
           </div>
         </div>
@@ -250,21 +253,23 @@ function generateAboutMe() {
   container.querySelector(".about-next").addEventListener("click", nextItem);
 }
 
+// Handle switching about items
 function switchItem(newIndex) {
   const items = document.querySelectorAll(".about-item");
 
-  // 确保索引在有效范围内
+  // Ensure index is within valid range
   newIndex = ((newIndex % items.length) + items.length) % items.length;
 
-  // 移除所有激活状态
+  // Remove active class from all items
   items.forEach((item, index) => {
     item.classList.toggle("active", index === newIndex);
   });
 
-  // 更新索引
+  // Update index
   currentAboutMeIndex = newIndex;
 }
 
+// Handle previous and next button clicks
 function nextItem() {
   switchItem(currentAboutMeIndex + 1);
 }
@@ -278,6 +283,7 @@ let currentProjectIndex = 0;
 const PROJECT_SWITCH_INTERVAL = 5000;
 let projectSwitchTimer;
 
+// Function to generate projects dynamically
 function generateProject() {
   const projectContainer = document.querySelector(".project");
   projectContainer.innerHTML = `
@@ -343,7 +349,7 @@ function generateProject() {
     dot.addEventListener("click", () => switchProjectItem(index));
   });
 
-  // 按钮事件
+  // Button event listeners
   projectContainer
     .querySelector(".carousel-prev")
     .addEventListener("click", () =>
@@ -358,40 +364,43 @@ function generateProject() {
   startProjectAutoSwitch();
 }
 
+// Handle switching project items
 function switchProjectItem(newIndex) {
   const items = document.querySelectorAll(".project-item");
   const dots = document.querySelectorAll(".carousel-dots .dot");
 
-  // 边界处理
+  // Boundary checks
   if (newIndex < 0) newIndex = items.length - 1;
   if (newIndex >= items.length) newIndex = 0;
 
-  // 移除旧状态
+  //  Remove old active states
   items[currentProjectIndex].classList.remove("active");
   dots[currentProjectIndex].classList.remove("active");
 
-  // 添加新状态
+  // Add new active states
   items[newIndex].classList.add("active");
   dots[newIndex].classList.add("active");
-
-  // 更新索引
+  // Update current project index
   currentProjectIndex = newIndex;
 
-  // 重置定时器
+  // Reset the timer
   resetProjectAutoSwitch();
 }
 
+// Start the auto-switching of projects
 function startProjectAutoSwitch() {
   projectSwitchTimer = setInterval(() => {
     switchProjectItem(currentProjectIndex + 1);
   }, PROJECT_SWITCH_INTERVAL);
 }
 
+// Reset the auto-switching timer
 function resetProjectAutoSwitch() {
   clearInterval(projectSwitchTimer);
   startProjectAutoSwitch();
 }
 
+// Function to update the score and level
 function updateScore() {
   const checkedPractices = bestPractices.filter((practice) => practice.checked);
   const score = checkedPractices.length;
@@ -414,6 +423,7 @@ function updateScore() {
     successBanner.remove();
   }
 }
+// Function to create a success banner
 function createSuccessBanner() {
   const standardsList = document.querySelector(".grade");
   const banner = document.createElement("div");
@@ -422,10 +432,10 @@ function createSuccessBanner() {
     <h5 class="text-success">🎉 You Win!</h5>
     <div class="reward-content"></div>
   `;
-  standardsList.before(banner); // 在标准列表后插入
+  standardsList.before(banner); // Insert after the standards list
 }
 
-// 获取猫咪奖励（保持原有功能）
+// Fetch a reward (cat image)
 async function fetchCatReward() {
   try {
     // 获取猫咪图片

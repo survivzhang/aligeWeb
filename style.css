@@ -15,7 +15,7 @@
 
 /* Base styles */
 html {
-  font-size: 16px;
+  font-size: 16px; /* Sets the base font size */
 }
 
 body {
@@ -23,6 +23,8 @@ body {
   line-height: 1.6;
   letter-spacing: 0.5px;
   background-color: var(--first-bg-color);
+  margin: 0;
+  padding: 0;
 }
 
 /* Container styles */
@@ -48,38 +50,43 @@ body {
 }
 
 .list-group-item:hover {
-  background-color: rgba(48, 48, 48, 0.7);
+  background-color: rgba(
+    48,
+    48,
+    48,
+    0.7
+  ); /* Changes background color on hover */
 }
 
 .list-group-item p {
   text-align: left;
 }
 
-/* Score/outcome area */
-.outcome {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 100%;
-}
-
-.outcome li {
-  text-align: left;
-  margin-bottom: var(--spacing-xs);
-}
-
+/* Layout for outcome/score */
+.outcome,
 .inform {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   margin: var(--spacing-lg) var(--spacing-sm);
 }
 
-.level {
+.outcome {
+  flex-direction: column;
+  height: 100%;
+}
+
+.level,
+.grade {
   align-items: center;
+}
+
+.level {
   font-size: 1.875rem;
 }
 
 .grade {
-  align-items: center;
   margin-top: 25%;
   font-size: 1.25rem;
 }
@@ -102,13 +109,6 @@ body {
   margin-top: 10%;
 }
 
-.aboutProgress {
-  display: flex;
-  margin-top: 20%;
-  flex-direction: column;
-  height: 100%;
-}
-
 .aboutMeImage {
   width: 100%;
   max-width: 400px;
@@ -120,7 +120,7 @@ body {
 }
 
 .aboutMeImage:hover {
-  transform: scale(1.02);
+  transform: scale(1.02); /* Image zoom effect on hover */
 }
 
 /* About item transitions */
@@ -152,8 +152,6 @@ body {
   color: #666;
   margin: 0 5px;
   transition: color var(--transition-fast);
-  background: none;
-  border: none;
 }
 
 .dot.active {
@@ -163,7 +161,7 @@ body {
 .dot:hover,
 .dot:focus {
   color: var(--button-color);
-  transform: scale(1.1);
+  transform: scale(1.1); /* Hover effect for the dot */
 }
 
 /* Project section */
@@ -225,10 +223,9 @@ body {
   transform: scale(1.3);
 }
 
-/* Reference section - Optimized */
+/* Reference section */
 .reference {
   margin: var(--spacing-lg) 0;
-  text-align: left;
   padding: var(--spacing-lg);
   border-top: 1px solid #dee2e6;
 }
@@ -256,11 +253,11 @@ body {
 }
 
 .status-indicator.completed {
-  background: #198754;
+  background: #198754; /* Green for completed status */
 }
 
 .status-indicator.in-progress {
-  background: #ffc107;
+  background: #ffc107; /* Yellow for in-progress status */
   animation: pulse 1.5s infinite;
 }
 
@@ -282,7 +279,7 @@ body {
 }
 
 .project-image:hover img {
-  transform: scale(1.03);
+  transform: scale(1.03); /* Zoom effect on hover */
 }
 
 /* Success banner */
@@ -335,18 +332,18 @@ body {
 
 .about-prev:hover,
 .about-next:hover {
-  transform: translateY(-2px);
+  transform: translateY(-2px); /* Button hover effect */
 }
 
 .about-prev:active,
 .about-next:active {
-  transform: translateY(1px);
+  transform: translateY(1px); /* Button active effect */
 }
 
 .about-prev:disabled,
 .about-next:disabled {
   opacity: 0.6;
-  cursor: not-allowed;
+  cursor: not-allowed; /* Disabled button state */
 }
 
 /* Responsive styles */
