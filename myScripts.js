@@ -190,6 +190,7 @@ function generateBestPracticesList() {
     input.className = "form-check-input me-1";
     input.type = "checkbox";
     input.id = practice.id;
+    // Check local storage for the checkbox state
     const storedState = localStorage.getItem(practice.id);
     if (storedState === "true") {
       input.checked = true;
@@ -278,7 +279,7 @@ function prevItem() {
   switchItem(currentAboutMeIndex - 1);
 }
 
-// Project 部分
+// Project part
 let currentProjectIndex = 0;
 const PROJECT_SWITCH_INTERVAL = 5000;
 let projectSwitchTimer;
